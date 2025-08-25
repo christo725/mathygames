@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import StartScreen from './components/StartScreen';
 import GameScreen from './components/GameScreen';
@@ -94,20 +94,6 @@ function App() {
     };
   }, []);
 
-  // Select a random problem (using useCallback to make it stable for useEffect)
-  const selectRandomProblem = useCallback(() => {
-    if (problems.length > 0) {
-      const randomIndex = Math.floor(Math.random() * problems.length);
-      const selected = problems[randomIndex];
-      console.log(`Selected problem: ${selected[0]} × ${selected[1]}, Current multiplier: ${multiplier}`);
-      setCurrentProblem(selected);
-      setIsProcessingAnswer(false);
-    } else {
-      // All problems solved
-      setGameState('celebration');
-      sounds.celebration.play();
-    }
-  }, [problems, multiplier]);
 
   // Start the game with the selected multiplier
   const startGame = (selectedNumber) => {
