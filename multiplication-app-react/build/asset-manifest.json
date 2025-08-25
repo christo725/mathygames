@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.bd8d8882.css",
-    "main.js": "/static/js/main.c7c9d347.js",
-    "static/media/celebration.mp3": "/static/media/celebration.61f3a61e267065f86d94.mp3",
-    "static/media/celebration4.gif": "/static/media/celebration4.d86e8d3ee4c357f7d43d.gif",
-    "static/media/celebration2.gif": "/static/media/celebration2.f1e659229fbfd1fdac02.gif",
-    "static/media/math_fun.png": "/static/media/math_fun.487d7e9550ffa8200da8.png",
-    "static/media/badge.png": "/static/media/badge.e5d685b3a72ee154a746.png",
-    "static/media/celebration3.gif": "/static/media/celebration3.75ae3d45ef34c794ac65.gif",
-    "static/media/celebration1.gif": "/static/media/celebration1.1c590bebb7cbefa5b666.gif",
-    "static/media/celebration7.gif": "/static/media/celebration7.f0c4a11946951ca0c9dd.gif",
-    "static/media/celebration6.gif": "/static/media/celebration6.c03422f9c11e6620f393.gif",
-    "static/media/celebration5.gif": "/static/media/celebration5.9e36457e8471c89da8ac.gif",
-    "static/media/correct.mp3": "/static/media/correct.af5542aa06b9cedb717d.mp3",
-    "static/media/wrong.mp3": "/static/media/wrong.af5542aa06b9cedb717d.mp3",
-    "static/media/blast-off.mp3": "/static/media/blast-off.b0c727553cd401c54bb9.mp3",
-    "static/media/select-laser.mp3": "/static/media/select-laser.17cb11c1d0833d11fb29.mp3",
-    "index.html": "/index.html",
-    "static/media/laser-blast.mp3": "/static/media/laser-blast.9f8a89b2705a1afb650e.mp3",
-    "main.bd8d8882.css.map": "/static/css/main.bd8d8882.css.map",
-    "main.c7c9d347.js.map": "/static/js/main.c7c9d347.js.map"
+    "main.css": "./static/css/main.bd8d8882.css",
+    "main.js": "./static/js/main.92efc6c1.js",
+    "static/media/celebration.mp3": "./static/media/celebration.61f3a61e267065f86d94.mp3",
+    "static/media/celebration4.gif": "./static/media/celebration4.d86e8d3ee4c357f7d43d.gif",
+    "static/media/celebration2.gif": "./static/media/celebration2.f1e659229fbfd1fdac02.gif",
+    "static/media/math_fun.png": "./static/media/math_fun.487d7e9550ffa8200da8.png",
+    "static/media/badge.png": "./static/media/badge.e5d685b3a72ee154a746.png",
+    "static/media/celebration3.gif": "./static/media/celebration3.75ae3d45ef34c794ac65.gif",
+    "static/media/celebration1.gif": "./static/media/celebration1.1c590bebb7cbefa5b666.gif",
+    "static/media/celebration7.gif": "./static/media/celebration7.f0c4a11946951ca0c9dd.gif",
+    "static/media/celebration6.gif": "./static/media/celebration6.c03422f9c11e6620f393.gif",
+    "static/media/celebration5.gif": "./static/media/celebration5.9e36457e8471c89da8ac.gif",
+    "static/media/correct.mp3": "./static/media/correct.af5542aa06b9cedb717d.mp3",
+    "static/media/wrong.mp3": "./static/media/wrong.af5542aa06b9cedb717d.mp3",
+    "static/media/blast-off.mp3": "./static/media/blast-off.b0c727553cd401c54bb9.mp3",
+    "static/media/select-laser.mp3": "./static/media/select-laser.17cb11c1d0833d11fb29.mp3",
+    "index.html": "./index.html",
+    "static/media/laser-blast.mp3": "./static/media/laser-blast.9f8a89b2705a1afb650e.mp3",
+    "main.bd8d8882.css.map": "./static/css/main.bd8d8882.css.map",
+    "main.92efc6c1.js.map": "./static/js/main.92efc6c1.js.map"
   },
   "entrypoints": [
     "static/css/main.bd8d8882.css",
-    "static/js/main.c7c9d347.js"
+    "static/js/main.92efc6c1.js"
   ]
 }
