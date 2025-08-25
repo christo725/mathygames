@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NF6XR944W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6NF6XR944W');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Island Adventure</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(180deg, #87CEEB 0%, #98D8E8 50%, #FFF8DC 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 182, 193, 0.1) 10px,
+                rgba(255, 182, 193, 0.1) 20px
+            );
+            animation: stripes 20s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes stripes {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .game-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            color: #FF6B6B;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 #FFE66D;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: linear-gradient(135deg, #FFE66D, #FFD93D);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .stat-item:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+        
+        .stat-item:nth-child(3) {
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .game-area {
+            background: linear-gradient(135deg, #A8E6CF 0%, #7FD8BE 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            position: relative;
+            min-height: 300px;
+            box-shadow: inset 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .character {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            position: relative;
+            animation: characterBounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes characterBounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .character-img {
+            width: 100%;
+            height: 100%;
+            font-size: 120px;
+            text-align: center;
+            line-height: 150px;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+        }
+        
+        .speech-bubble {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            animation: speechPop 0.5s ease-out;
+        }
+        
+        @keyframes speechPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid white;
+        }
+        
+        .problem {
+            font-size: 2.5em;
+            color: #4ECDC4;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .answers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .answer-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .answer-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .answer-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .answer-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .answer-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        .message {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 20px 0;
+            height: 30px;
+            font-weight: 600;
+        }
+        
+        .message.correct {
+            color: #2ECC71;
+            animation: correctPulse 0.5s ease-out;
+        }
+        
+        .message.incorrect {
+            color: #E74C3C;
+            animation: shake 0.5s ease-out;
+        }
+        
+        @keyframes correctPulse {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        .treasure {
+            position: absolute;
+            font-size: 40px;
+            animation: treasureFloat 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes treasureFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .start-screen, .end-screen {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .start-btn, .play-again-btn {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 30px;
+            font-size: 1.5em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+        
+        .start-btn:hover, .play-again-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .difficulty-select {
+            margin: 20px 0;
+        }
+        
+        .difficulty-btn {
+            background: #FFE66D;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            margin: 0 10px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .difficulty-btn:hover {
+            background: #FFD93D;
+            transform: translateY(-3px);
+        }
+        
+        .difficulty-btn.selected {
+            background: #4ECDC4;
+            color: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            font-size: 30px;
+            animation: particleFall 4s linear;
+        }
+        
+        @keyframes particleFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .sound-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .sound-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .sound-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .sound-btn.muted {
+            opacity: 0.5;
+        }
+        
+        .answer-btn.correct {
+            background: linear-gradient(135deg, #2ECC71, #27AE60);
+            animation: correctPulse 0.5s ease-out;
+        }
+        
+        .answer-btn.incorrect {
+            background: linear-gradient(135deg, #E74C3C, #C0392B);
+            animation: shake 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="particles" id="particles"></div>
+        
+        <div class="game-header">
+            <h1>🏝️ Number Island Adventure 🏝️</h1>
+        </div>
+        
+        <div id="startScreen" class="start-screen">
+            <h2 style="color: #4ECDC4; font-size: 2em; margin-bottom: 20px;">Welcome to Number Island!</h2>
+            <p style="font-size: 1.3em; color: #666; margin-bottom: 30px;">Help the island animals collect treasures by solving math problems!</p>
+            
+            <div class="difficulty-select">
+                <p style="font-size: 1.2em; margin-bottom: 15px;">Choose your adventure level:</p>
+                <button class="difficulty-btn selected" data-level="easy">Easy (+ and -)</button>
+                <button class="difficulty-btn" data-level="medium">Medium (includes ×)</button>
+                <button class="difficulty-btn" data-level="hard">Hard (bigger numbers)</button>
+            </div>
+            
+            <button class="start-btn" onclick="startGame()">Start Adventure!</button>
+        </div>
+        
+        <div id="gameScreen" class="hidden">
+            <div class="stats">
+                <div class="stat-item">⭐ Score: <span id="score">0</span></div>
+                <div class="stat-item">🎯 Streak: <span id="streak">0</span></div>
+                <div class="stat-item">💎 Treasures: <span id="treasures">0</span></div>
+            </div>
+            
+            <div class="game-area">
+                <div class="character">
+                    <div class="character-img" id="character">🐨</div>
+                </div>
+                
+                <div class="speech-bubble">
+                    <div class="problem" id="problem"></div>
+                </div>
+                
+                <div class="answers" id="answers"></div>
+                
+                <div class="sound-controls">
+                    <button class="sound-btn" id="musicToggle" onclick="toggleMusic()">🎵</button>
+                    <button class="sound-btn" id="sfxToggle" onclick="toggleSFX()">🔊</button>
+                </div>
+            </div>
+            
+            <div class="message" id="message"></div>
+        </div>
+        
+        <div id="endScreen" class="end-screen hidden">
+            <h2 style="color: #4ECDC4; font-size: 2.5em; margin-bottom: 20px;">🎉 Adventure Complete! 🎉</h2>
+            <p style="font-size: 1.5em; color: #666; margin-bottom: 20px;">You collected <span id="finalTreasures" style="color: #FFE66D; font-weight: bold;"></span> treasures!</p>
+            <p style="font-size: 1.3em; color: #666; margin-bottom: 30px;">Final Score: <span id="finalScore" style="color: #4ECDC4; font-weight: bold;"></span></p>
+            <button class="play-again-btn" onclick="resetGame()">Play Again!</button>
+        </div>
+    </div>
+    
+    <script>
+        // Audio Context and Sound System
+        let audioContext;
+        let musicEnabled = true;
+        let sfxEnabled = true;
+        let backgroundMusicInterval;
+        
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        
+        function playNote(frequency, duration, type = 'sine', volume = 0.15) {
+            if (!sfxEnabled || !audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            
+            gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+        
+        function playCorrectSound() {
+            if (!sfxEnabled) return;
+            playNote(523.25, 0.15, 'sine'); // C5
+            setTimeout(() => playNote(659.25, 0.15, 'sine'), 120); // E5
+            setTimeout(() => playNote(783.99, 0.25, 'sine'), 240); // G5
+            setTimeout(() => playNote(1046.50, 0.3, 'sine'), 360); // C6
+        }
+        
+        function playIncorrectSound() {
+            if (!sfxEnabled) return;
+            playNote(440, 0.2, 'triangle', 0.1); // A4
+            setTimeout(() => playNote(392, 0.3, 'triangle', 0.1), 150); // G4
+        }
+        
+        function playButtonClick() {
+            if (!sfxEnabled) return;
+            playNote(880, 0.03, 'sine', 0.05); // A5
+        }
+        
+        function playTreasureSound() {
+            if (!sfxEnabled) return;
+            playNote(698.46, 0.15, 'sine'); // F5
+            setTimeout(() => playNote(880, 0.15, 'sine'), 80); // A5
+            setTimeout(() => playNote(1046.50, 0.15, 'sine'), 160); // C6
+            setTimeout(() => playNote(1396.91, 0.25, 'sine'), 240); // F6
+            setTimeout(() => playNote(1760, 0.3, 'sine'), 320); // A6
+        }
+        
+        function playBackgroundMusic() {
+            if (!musicEnabled || !audioContext) return;
+            
+            // Tropical Island Theme - retro steel drum style
+            const melody = [
+                // Opening phrase - cheerful island greeting
+                {note: 659.25, duration: 0.15}, // E5
+                {note: 783.99, duration: 0.15}, // G5
+                {note: 880, duration: 0.3}, // A5
+                {note: 783.99, duration: 0.15}, // G5
+                {note: 659.25, duration: 0.15}, // E5
+                {note: 523.25, duration: 0.3}, // C5
+                {note: 0, duration: 0.15}, // Rest
+                
+                // Steel drum pattern 1
+                {note: 587.33, duration: 0.15}, // D5
+                {note: 659.25, duration: 0.15}, // E5
+                {note: 698.46, duration: 0.15}, // F5
+                {note: 659.25, duration: 0.15}, // E5
+                {note: 587.33, duration: 0.2}, // D5
+                {note: 523.25, duration: 0.2}, // C5
+                {note: 587.33, duration: 0.3}, // D5
+                {note: 0, duration: 0.1}, // Rest
+                
+                // Calypso rhythm section
+                {note: 440, duration: 0.1}, // A4
+                {note: 523.25, duration: 0.1}, // C5
+                {note: 659.25, duration: 0.2}, // E5
+                {note: 523.25, duration: 0.1}, // C5
+                {note: 440, duration: 0.1}, // A4
+                {note: 392, duration: 0.2}, // G4
+                {note: 440, duration: 0.2}, // A4
+                {note: 523.25, duration: 0.2}, // C5
+                
+                // Tropical melody bridge
+                {note: 783.99, duration: 0.3}, // G5
+                {note: 698.46, duration: 0.15}, // F5
+                {note: 659.25, duration: 0.15}, // E5
+                {note: 587.33, duration: 0.3}, // D5
+                {note: 659.25, duration: 0.15}, // E5
+                {note: 698.46, duration: 0.15}, // F5
+                {note: 783.99, duration: 0.4}, // G5
+                {note: 0, duration: 0.2}, // Rest
+                
+                // Steel drum pattern 2 - higher energy
+                {note: 880, duration: 0.1}, // A5
+                {note: 783.99, duration: 0.1}, // G5
+                {note: 880, duration: 0.1}, // A5
+                {note: 1046.50, duration: 0.2}, // C6
+                {note: 880, duration: 0.1}, // A5
+                {note: 783.99, duration: 0.1}, // G5
+                {note: 659.25, duration: 0.2}, // E5
+                {note: 698.46, duration: 0.2}, // F5
+                
+                // Island dance section
+                {note: 587.33, duration: 0.15}, // D5
+                {note: 587.33, duration: 0.1}, // D5
+                {note: 659.25, duration: 0.15}, // E5
+                {note: 587.33, duration: 0.15}, // D5
+                {note: 523.25, duration: 0.2}, // C5
+                {note: 440, duration: 0.15}, // A4
+                {note: 523.25, duration: 0.15}, // C5
+                {note: 587.33, duration: 0.3}, // D5
+                
+                // Tropical bird call section
+                {note: 1174.66, duration: 0.1}, // D6
+                {note: 1046.50, duration: 0.1}, // C6
+                {note: 880, duration: 0.15}, // A5
+                {note: 1046.50, duration: 0.1}, // C6
+                {note: 1174.66, duration: 0.2}, // D6
+                {note: 0, duration: 0.15}, // Rest
+                {note: 1046.50, duration: 0.1}, // C6
+                {note: 880, duration: 0.1}, // A5
+                {note: 783.99, duration: 0.2}, // G5
+                
+                // Reggae-inspired breakdown
+                {note: 523.25, duration: 0.2}, // C5
+                {note: 0, duration: 0.1}, // Rest
+                {note: 523.25, duration: 0.1}, // C5
+                {note: 659.25, duration: 0.2}, // E5
+                {note: 0, duration: 0.1}, // Rest
+                {note: 659.25, duration: 0.1}, // E5
+                {note: 783.99, duration: 0.2}, // G5
+                {note: 659.25, duration: 0.2}, // E5
+                
+                // Building back up
+                {note: 392, duration: 0.15}, // G4
+                {note: 440, duration: 0.15}, // A4
+                {note: 523.25, duration: 0.15}, // C5
+                {note: 587.33, duration: 0.15}, // D5
+                {note: 659.25, duration: 0.15}, // E5
+                {note: 698.46, duration: 0.15}, // F5
+                {note: 783.99, duration: 0.15}, // G5
+                {note: 880, duration: 0.15}, // A5
+                
+                // Final flourish before loop
+                {note: 1046.50, duration: 0.2}, // C6
+                {note: 880, duration: 0.1}, // A5
+                {note: 783.99, duration: 0.1}, // G5
+                {note: 659.25, duration: 0.2}, // E5
+                {note: 783.99, duration: 0.1}, // G5
+                {note: 659.25, duration: 0.1}, // E5
+                {note: 523.25, duration: 0.4}, // C5
+                {note: 0, duration: 0.3}, // Rest before loop
+            ];
+            
+            let noteIndex = 0;
+            
+            function playNextNote() {
+                if (!musicEnabled) return;
+                
+                const {note, duration} = melody[noteIndex];
+                if (note > 0) {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    // Add slight vibrato for steel drum effect
+                    const vibrato = audioContext.createOscillator();
+                    const vibratoGain = audioContext.createGain();
+                    
+                    vibrato.frequency.value = 6; // 6 Hz vibrato
+                    vibratoGain.gain.value = 8; // Slight pitch variation
+                    
+                    vibrato.connect(vibratoGain);
+                    vibratoGain.connect(oscillator.frequency);
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    // Triangle wave for softer, steel drum-like tone
+                    oscillator.type = 'triangle';
+                    oscillator.frequency.setValueAtTime(note, audioContext.currentTime);
+                    
+                    // Quick attack, quick decay for percussive steel drum sound
+                    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.06, audioContext.currentTime + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.02, audioContext.currentTime + duration * 0.3);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + duration);
+                    vibrato.start(audioContext.currentTime);
+                    vibrato.stop(audioContext.currentTime + duration);
+                }
+                
+                noteIndex = (noteIndex + 1) % melody.length;
+            }
+            
+            // Clear any existing interval
+            if (backgroundMusicInterval) {
+                clearInterval(backgroundMusicInterval);
+            }
+            
+            // Play music loop
+            playNextNote();
+            backgroundMusicInterval = setInterval(playNextNote, 150);
+        }
+        
+        function toggleMusic() {
+            initAudio();
+            musicEnabled = !musicEnabled;
+            const btn = document.getElementById('musicToggle');
+            btn.classList.toggle('muted', !musicEnabled);
+            btn.textContent = musicEnabled ? '🎵' : '🎶';
+            
+            if (musicEnabled) {
+                playBackgroundMusic();
+            } else if (backgroundMusicInterval) {
+                clearInterval(backgroundMusicInterval);
+            }
+        }
+        
+        function toggleSFX() {
+            initAudio();
+            sfxEnabled = !sfxEnabled;
+            const btn = document.getElementById('sfxToggle');
+            btn.classList.toggle('muted', !sfxEnabled);
+            btn.textContent = sfxEnabled ? '🔊' : '🔇';
+        }
+        
+        // Initialize audio on first user interaction
+        document.addEventListener('click', function initAudioOnce() {
+            initAudio();
+            if (musicEnabled) {
+                playBackgroundMusic();
+            }
+            document.removeEventListener('click', initAudioOnce);
+        }, { once: true });
+        
+        const characters = ['🐨', '🐸', '🦜', '🐢', '🦋', '🐵', '🦦', '🦝'];
+        const treasures = ['💎', '🏆', '⭐', '🌟', '✨', '💰', '👑', '🎁'];
+        const encouragements = ['Great job!', 'Awesome!', 'You rock!', 'Amazing!', 'Super!', 'Fantastic!', 'Brilliant!', 'Excellent!'];
+        const tryAgainMessages = ['Almost there!', 'Try again!', 'Keep going!', 'You can do it!'];
+        
+        let score = 0;
+        let streak = 0;
+        let treasureCount = 0;
+        let currentProblem = {};
+        let difficulty = 'easy';
+        let problemCount = 0;
+        const maxProblems = 15;
+        
+        function setDifficulty(level) {
+            difficulty = level;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+        
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => setDifficulty(e.target.dataset.level));
+        });
+        
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            generateProblem();
+            createFloatingParticles();
+            playButtonClick();
+        }
+        
+        function generateProblem() {
+            if (problemCount >= maxProblems) {
+                endGame();
+                return;
+            }
+            
+            problemCount++;
+            const character = characters[Math.floor(Math.random() * characters.length)];
+            document.getElementById('character').textContent = character;
+            
+            let num1, num2, operation, answer;
+            
+            if (difficulty === 'easy') {
+                num1 = Math.floor(Math.random() * 20) + 1;
+                num2 = Math.floor(Math.random() * 20) + 1;
+                operation = Math.random() < 0.5 ? '+' : '-';
+                
+                if (operation === '-' && num1 < num2) {
+                    [num1, num2] = [num2, num1];
+                }
+            } else if (difficulty === 'medium') {
+                const ops = ['+', '-', '×'];
+                operation = ops[Math.floor(Math.random() * ops.length)];
+                
+                if (operation === '×') {
+                    num1 = Math.floor(Math.random() * 12) + 1;
+                    num2 = Math.floor(Math.random() * 12) + 1;
+                } else {
+                    num1 = Math.floor(Math.random() * 50) + 1;
+                    num2 = Math.floor(Math.random() * 50) + 1;
+                    if (operation === '-' && num1 < num2) {
+                        [num1, num2] = [num2, num1];
+                    }
+                }
+            } else {
+                const ops = ['+', '-', '×'];
+                operation = ops[Math.floor(Math.random() * ops.length)];
+                
+                if (operation === '×') {
+                    num1 = Math.floor(Math.random() * 12) + 1;
+                    num2 = Math.floor(Math.random() * 12) + 1;
+                } else {
+                    num1 = Math.floor(Math.random() * 100) + 1;
+                    num2 = Math.floor(Math.random() * 100) + 1;
+                    if (operation === '-' && num1 < num2) {
+                        [num1, num2] = [num2, num1];
+                    }
+                }
+            }
+            
+            switch (operation) {
+                case '+':
+                    answer = num1 + num2;
+                    break;
+                case '-':
+                    answer = num1 - num2;
+                    break;
+                case '×':
+                    answer = num1 * num2;
+                    break;
+            }
+            
+            currentProblem = { num1, num2, operation, answer };
+            
+            document.getElementById('problem').textContent = `${num1} ${operation} ${num2} = ?`;
+            
+            generateAnswers(answer);
+        }
+        
+        function generateAnswers(correctAnswer) {
+            const answers = [correctAnswer];
+            const usedAnswers = new Set([correctAnswer]);
+            
+            while (answers.length < 4) {
+                let wrongAnswer;
+                if (correctAnswer < 20) {
+                    wrongAnswer = correctAnswer + (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 5) + 1);
+                } else {
+                    wrongAnswer = correctAnswer + (Math.random() < 0.5 ? 1 : -1) * (Math.floor(Math.random() * 10) + 1);
+                }
+                
+                if (wrongAnswer > 0 && !usedAnswers.has(wrongAnswer)) {
+                    answers.push(wrongAnswer);
+                    usedAnswers.add(wrongAnswer);
+                }
+            }
+            
+            answers.sort(() => Math.random() - 0.5);
+            
+            const answersDiv = document.getElementById('answers');
+            answersDiv.innerHTML = '';
+            
+            answers.forEach(answer => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = answer;
+                btn.onclick = () => {
+                    playButtonClick();
+                    checkAnswer(answer);
+                };
+                answersDiv.appendChild(btn);
+            });
+        }
+        
+        function checkAnswer(answer) {
+            const messageEl = document.getElementById('message');
+            const buttons = document.querySelectorAll('.answer-btn');
+            
+            // Disable all buttons temporarily
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (parseInt(btn.textContent) === answer) {
+                    if (answer === currentProblem.answer) {
+                        btn.classList.add('correct');
+                    } else {
+                        btn.classList.add('incorrect');
+                    }
+                }
+            });
+            
+            if (answer === currentProblem.answer) {
+                playCorrectSound();
+                score += 10 + (streak * 2);
+                streak++;
+                
+                // Update the problem display to show the complete equation
+                document.getElementById('problem').textContent = 
+                    `${currentProblem.num1} ${currentProblem.operation} ${currentProblem.num2} = ${currentProblem.answer}`;
+                
+                if (streak % 3 === 0) {
+                    treasureCount++;
+                    showTreasure();
+                    playTreasureSound();
+                }
+                
+                messageEl.textContent = encouragements[Math.floor(Math.random() * encouragements.length)];
+                messageEl.className = 'message correct';
+                
+                updateStats();
+                
+                setTimeout(() => {
+                    messageEl.textContent = '';
+                    generateProblem();
+                }, 2000);
+            } else {
+                playIncorrectSound();
+                streak = 0;
+                messageEl.textContent = tryAgainMessages[Math.floor(Math.random() * tryAgainMessages.length)];
+                messageEl.className = 'message incorrect';
+                
+                setTimeout(() => {
+                    messageEl.textContent = '';
+                    // Re-enable buttons and remove color classes
+                    buttons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'incorrect');
+                    });
+                }, 1500);
+            }
+        }
+        
+        function updateStats() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+            document.getElementById('treasures').textContent = treasureCount;
+        }
+        
+        function showTreasure() {
+            const treasure = document.createElement('div');
+            treasure.className = 'treasure';
+            treasure.textContent = treasures[Math.floor(Math.random() * treasures.length)];
+            treasure.style.left = Math.random() * 80 + 10 + '%';
+            treasure.style.top = Math.random() * 80 + 10 + '%';
+            treasure.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.querySelector('.game-area').appendChild(treasure);
+            
+            setTimeout(() => {
+                treasure.remove();
+            }, 3000);
+        }
+        
+        function createFloatingParticles() {
+            setInterval(() => {
+                if (Math.random() < 0.3) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.textContent = ['🌺', '🌸', '🌼', '🌻', '🦜', '🌴'][Math.floor(Math.random() * 6)];
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    
+                    document.getElementById('particles').appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 5000);
+                }
+            }, 2000);
+        }
+        
+        function endGame() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('endScreen').classList.remove('hidden');
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('finalTreasures').textContent = treasureCount;
+            
+            // Celebration particles
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.textContent = ['🎉', '🎊', '⭐', '✨'][Math.floor(Math.random() * 4)];
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    
+                    document.getElementById('particles').appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 4000);
+                }, i * 100);
+            }
+        }
+        
+        function resetGame() {
+            score = 0;
+            streak = 0;
+            treasureCount = 0;
+            problemCount = 0;
+            updateStats();
+            
+            document.getElementById('endScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathy.games - Fun Math Games for Kids!</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6NF6XR944W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6NF6XR944W');
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background shapes */
+        .bg-shape {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        .bg-shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            background: #ff6b6b;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            background: #4ecdc4;
+            top: 60%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        .bg-shape:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: #ffe66d;
+            bottom: 10%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(30px) rotate(240deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: bounceIn 1s ease-out;
+        }
+
+        .header img {
+            max-width: 800px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.2));
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Game Grid */
+        .games-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            align-items: center;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            display: block;
+            animation: slideUp 0.6s ease-out;
+            animation-fill-mode: both;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffe66d, #764ba2);
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .game-image {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Grade badge */
+        .grade-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4ecdc4;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(78, 205, 196, 0.3);
+            z-index: 1;
+        }
+
+        /* Location text */
+        .location-text {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        .game-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .game-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.32em;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Donation Section */
+        .donation-section {
+            text-align: center;
+            background: #e6f9f7;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease-out 0.5s both;
+            border: 2px solid rgba(78, 205, 196, 0.2);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .donation-text {
+            font-size: 1.3em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .coffee-button {
+            display: inline-block;
+            background: #FFDD00;
+            color: #000;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 221, 0, 0.4);
+        }
+
+        .coffee-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 221, 0, 0.6);
+            background: #FFE838;
+        }
+
+        .coffee-button::before {
+            content: '☕ ';
+            font-size: 1.3em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 3em;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .donation-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background shapes -->
+    <div class="bg-shape"></div>
+    <div class="bg-shape"></div>
+    <div class="bg-shape"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <img src="graphics/MATHY-GAMES-header.png" alt="mathy.games">
+        </header>
+
+        <!-- Games Grid -->
+        <div class="games-grid">
+            <!-- Math Blasters -->
+            <a href="multiplication-app-react/build/index.html" class="game-card">
+                <span class="grade-badge">3rd/4th Grade</span>
+                <div class="game-image"><img src="graphics/MATH-BLASTERS.png" alt="Math Blasters"></div>
+                <p class="game-description">Blast your way through multiplication tables 1-12!<br>Master your times tables with exciting space missions.</p>
+            </a>
+
+            <!-- Number Island -->
+            <a href="number-island-game.html" class="game-card">
+                <span class="grade-badge">3rd/4th Grade</span>
+                <div class="game-image"><img src="graphics/NUMBER-ISLAND.png" alt="Number Island"></div>
+                <p class="game-description">Explore a tropical island while practicing addition and subtraction.<br>Solve puzzles to discover hidden treasures!</p>
+            </a>
+
+            <!-- Cash Register -->
+            <a href="cash-register-game.html" class="game-card">
+                <span class="grade-badge">3rd/4th Grade</span>
+                <div class="game-image"><img src="graphics/CASH-REGISTER.png" alt="Cash Register"></div>
+                <p class="game-description">Run your own neighborhood store!<br>Practice making change and learn real-world money skills.</p>
+            </a>
+        </div>
+
+        <!-- Donation Section -->
+        <div class="donation-section">
+            <p class="donation-text" style="font-size: 1.69em; font-weight: bold; margin-bottom: 10px;">Like these games?</p>
+            <p class="donation-text">Have your parents buy me a cup of coffee to support this site!</p>
+            <a href="https://www.buymeacoffee.com/yourusername" class="coffee-button" target="_blank">
+                Buy Me A Coffee
+            </a>
+            <p class="location-text">Made in La Cañada Flintridge, California.</p>
+        </div>
+    </div>
+
+    <script>
+        // Add some fun interactivity
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const img = this.querySelector('.game-image img');
+                if (img) img.style.transform = 'scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const img = this.querySelector('.game-image img');
+                if (img) img.style.transform = 'scale(1)';
+            });
+        });
+
+        // Add a fun easter egg - clicking the header makes it wiggle
+        document.querySelector('.header img').addEventListener('click', function() {
+            this.style.animation = 'wiggle 0.5s ease-in-out';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 500);
+        });
+
+        // Add wiggle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes wiggle {
+                0%, 100% { transform: rotate(0deg); }
+                25% { transform: rotate(-5deg); }
+                75% { transform: rotate(5deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
