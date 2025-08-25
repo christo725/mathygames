@@ -13,6 +13,18 @@ const GameContainer = styled.div`
   z-index: 2;
 `;
 
+const MobileTitle = styled.h1`
+  display: none;
+  font-size: 1.2rem;
+  color: var(--cyan);
+  text-shadow: 0 0 10px rgba(34, 227, 255, 0.7);
+  margin-bottom: 1rem;
+  
+  @media (max-width: 480px) {
+    display: block;
+  }
+`;
+
 const ProgressContainer = styled(motion.div)`
   width: 100%;
   background-color: rgba(1, 3, 38, 0.7);
@@ -55,6 +67,96 @@ const ProgressText = styled.p`
   /* Mobile styles */
   @media (max-width: 480px) {
     font-size: 1.1rem;
+  }
+`;
+
+const SubmitButton = styled(motion.button)`
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, var(--orange), var(--yellow));
+  color: rgba(1, 3, 38, 0.9);
+  border: 3px solid var(--orange);
+  border-radius: 1rem;
+  padding: 1rem 3rem;
+  box-shadow: 0 0 20px rgba(255, 145, 57, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  font-family: 'Comic Neue', cursive;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  @media (max-width: 480px) {
+    display: none;
+  }
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(255, 205, 57, 0.7);
+  }
+  
+  &:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 15px rgba(255, 145, 57, 0.6);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+`;
+
+const SubmitHint = styled.span`
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-top: 0.3rem;
+  opacity: 0.8;
+`;
+
+const MobileKeypad = styled.div`
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+  
+  @media (max-width: 480px) {
+    display: grid;
+  }
+`;
+
+const KeypadButton = styled(motion.button)`
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, var(--cyan), #5648C0);
+  color: white;
+  border: none;
+  border-radius: 0.8rem;
+  padding: 1.2rem;
+  box-shadow: 0 0 15px rgba(34, 227, 255, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
+  font-family: 'Comic Neue', cursive;
+  cursor: pointer;
+  
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(34, 227, 255, 0.5);
+  }
+  
+  &.clear {
+    background: linear-gradient(45deg, var(--bright-pink), #FF6B9D);
+    grid-column: span 2;
+  }
+  
+  &.submit {
+    background: linear-gradient(45deg, var(--orange), var(--yellow));
+    color: rgba(1, 3, 38, 0.9);
+    grid-column: span 3;
+    font-size: 1.8rem;
   }
 `;
 
@@ -412,6 +514,7 @@ const GameScreen = ({
 
   return (
     <GameContainer>
+      <MobileTitle>Math Blasters</MobileTitle>
       <ProgressContainer
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -455,8 +558,55 @@ const GameScreen = ({
               transition={{ duration: 0.2 }}
             />
           </ProblemRow>
+          <SubmitButton
+            type="submit"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            disabled={isProcessingAnswer || !answer}
+          >
+            Submit
+            <SubmitHint>(or press Enter)</SubmitHint>
+          </SubmitButton>
         </form>
       </ProblemContainer>
+      
+      <MobileKeypad>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+          <KeypadButton
+            key={num}
+            type="button"
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setAnswer(answer + num)}
+          >
+            {num}
+          </KeypadButton>
+        ))}
+        <KeypadButton
+          className="clear"
+          type="button"
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setAnswer('')}
+        >
+          Clear
+        </KeypadButton>
+        <KeypadButton
+          key={0}
+          type="button"
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setAnswer(answer + 0)}
+        >
+          0
+        </KeypadButton>
+        <KeypadButton
+          className="submit"
+          type="button"
+          whileTap={{ scale: 0.9 }}
+          onClick={handleSubmit}
+          disabled={isProcessingAnswer || !answer}
+        >
+          Submit
+        </KeypadButton>
+      </MobileKeypad>
 
       {/* Badge collection display - moved up, directly under problems */}
       <BadgesContainer>
