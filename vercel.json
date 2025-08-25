@@ -2,6 +2,10 @@
   "buildCommand": "cd multiplication-app-react && npm install && npm run build",
   "outputDirectory": ".",
   "framework": null,
-  "cleanUrls": true,
-  "trailingSlash": false
+  "rewrites": [
+    {
+      "source": "/multiplication-app-react/build",
+      "destination": "/multiplication-app-react/build/index.html"
+    }
+  ]
 }
