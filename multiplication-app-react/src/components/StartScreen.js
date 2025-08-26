@@ -10,9 +10,9 @@ const StartScreenContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 1.4rem;
-  margin-top: 1.4rem;
+  margin-top: 0.5rem;
   width: 100%;
   max-width: 560px;
   transform: scale(1.4);
@@ -32,13 +32,14 @@ const StartScreenContainer = styled(motion.div)`
     margin-top: 0;
     padding: 1rem;
     max-width: none;
+    justify-content: center;
   }
 `;
 
 const StartImage = styled(motion.img)`
   width: 100%;
   max-width: 350px;
-  margin-top: 140px;
+  margin-top: 2rem;
   margin-bottom: 1.4rem;
   border-radius: 0.7rem;
   box-shadow: 0 0 21px rgba(34, 227, 255, 0.3);
