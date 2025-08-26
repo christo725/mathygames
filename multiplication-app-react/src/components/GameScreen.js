@@ -24,9 +24,30 @@ const MobileCelebrationOverlay = styled(motion.div)`
     right: 0;
     bottom: 0;
     background-color: rgba(1, 3, 38, 0.95);
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    gap: 1rem;
+  }
+`;
+
+const MobileCelebrationText = styled(motion.h2)`
+  display: none;
+  
+  @media (max-width: 480px) {
+    display: block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--cyan);
+    text-shadow: 0 0 15px rgba(34, 227, 255, 0.7);
+    background-color: rgba(1, 3, 38, 0.8);
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 20px rgba(34, 227, 255, 0.5);
+    font-family: 'Comic Neue', cursive;
+    text-align: center;
   }
 `;
 
@@ -563,6 +584,14 @@ const GameScreen = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
+            <MobileCelebrationText
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Correct!
+            </MobileCelebrationText>
             <CelebrationGif
               className="mobile-fullscreen"
               key="mobile-celebration-fullscreen"

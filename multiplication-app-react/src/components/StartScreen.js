@@ -53,10 +53,13 @@ const StartImage = styled(motion.img)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.8rem;
     max-width: none;
     width: calc(100% - 2rem);
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
   }
 `;
 
@@ -81,9 +84,9 @@ const StartText = styled(motion.h2)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 1.3rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
     width: calc(100% - 2rem);
   }
 `;
@@ -170,9 +173,9 @@ const StartButton = styled(motion.button)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 1.5rem;
-    padding: 1rem;
-    margin-top: 1rem;
+    font-size: 1.3rem;
+    padding: 0.8rem;
+    margin-top: 0.8rem;
     width: calc(100% - 2rem);
   }
 
@@ -224,8 +227,8 @@ const NumberButtonsContainer = styled(motion.div)`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
     width: calc(100% - 2rem);
   }
 `;
@@ -259,16 +262,9 @@ const NumberButton = styled(motion.button)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     width: 100%;
-    height: 3.5rem;
-  }
-  
-  /* Special positioning for button 10 on mobile */
-  @media (max-width: 480px) {
-    &:nth-child(10) {
-      grid-column: 2;
-    }
+    height: 3rem;
   }
 
   &:hover {
@@ -400,6 +396,12 @@ const StartScreen = ({ onStartClick, audioEnabled = false }) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             disabled={isLaserActive}
+            style={
+              // For mobile, place 10, 11, 12 on the bottom row
+              window.innerWidth <= 480 && number === 10 ? { gridColumn: '1' } :
+              window.innerWidth <= 480 && number === 11 ? { gridColumn: '2' } :
+              window.innerWidth <= 480 && number === 12 ? { gridColumn: '3' } : {}
+            }
           >
             {number}
           </NumberButton>
