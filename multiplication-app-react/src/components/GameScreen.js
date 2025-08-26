@@ -567,7 +567,7 @@ const GameScreen = ({
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Correct!
+              🚀 Correct! 🚀
             </CelebrationText>
             <CelebrationGif
               className="fullscreen"

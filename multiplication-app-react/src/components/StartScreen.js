@@ -39,7 +39,7 @@ const StartScreenContainer = styled(motion.div)`
 const StartImage = styled(motion.img)`
   width: 100%;
   max-width: 350px;
-  margin-top: 2rem;
+  margin-top: 150px;
   margin-bottom: 1.4rem;
   border-radius: 0.7rem;
   box-shadow: 0 0 21px rgba(34, 227, 255, 0.3);
