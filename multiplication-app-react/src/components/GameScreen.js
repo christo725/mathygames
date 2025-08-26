@@ -110,19 +110,19 @@ const ProgressText = styled.p`
 `;
 
 const SubmitButton = styled(motion.button)`
-  font-size: 1.141rem;
+  font-size: 1.8rem;
   font-weight: bold;
   background: linear-gradient(45deg, var(--orange), var(--yellow));
   color: rgba(1, 3, 38, 0.9);
-  border: 1.715px solid var(--orange);
-  border-radius: 0.567rem;
-  padding: 0.567rem 1.715rem;
-  box-shadow: 0 0 11.41px rgba(255, 145, 57, 0.5);
-  text-shadow: 0 0.567px 1.141px rgba(0, 0, 0, 0.2);
+  border: 2.5px solid var(--orange);
+  border-radius: 0.8rem;
+  padding: 1rem 2.5rem;
+  box-shadow: 0 0 20px rgba(255, 145, 57, 0.5);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.2s;
   font-family: 'Comic Neue', cursive;
   cursor: pointer;
-  margin: 0.856rem auto 0;
+  margin: 1.2rem auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,13 +132,13 @@ const SubmitButton = styled(motion.button)`
   }
   
   &:hover {
-    transform: translateY(-2.633px);
-    box-shadow: 0 0 26.33px rgba(255, 205, 57, 0.7);
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(255, 205, 57, 0.7);
   }
   
   &:active {
-    transform: translateY(2.633px);
-    box-shadow: 0 0 13.16px rgba(255, 145, 57, 0.6);
+    transform: translateY(4px);
+    box-shadow: 0 0 15px rgba(255, 145, 57, 0.6);
   }
   
   &:disabled {
@@ -148,9 +148,9 @@ const SubmitButton = styled(motion.button)`
 `;
 
 const SubmitHint = styled.span`
-  font-size: 0.513rem;
+  font-size: 0.9rem;
   font-weight: normal;
-  margin-top: 0.171rem;
+  margin-top: 0.5rem;
   opacity: 0.8;
 `;
 
