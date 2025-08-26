@@ -28,9 +28,10 @@ const StartScreenContainer = styled(motion.div)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    transform: scale(0.7);
-    margin-top: 0.35rem;
-    padding: 0.35rem;
+    transform: scale(1);
+    margin-top: 0;
+    padding: 1rem;
+    max-width: none;
   }
 `;
 
@@ -52,9 +53,10 @@ const StartImage = styled(motion.img)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    margin-top: 35px;
-    margin-bottom: 0.7rem;
-    max-width: 210px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-width: none;
+    width: calc(100% - 2rem);
   }
 `;
 
@@ -79,9 +81,10 @@ const StartText = styled(motion.h2)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 1.05rem;
-    padding: 0.7rem;
-    margin-bottom: 0.7rem;
+    font-size: 1.3rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: calc(100% - 2rem);
   }
 `;
 
@@ -167,9 +170,10 @@ const StartButton = styled(motion.button)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 1.05rem;
-    padding: 0.49rem 1.05rem;
-    margin-top: 0.7rem;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    width: calc(100% - 2rem);
   }
 
   &::before {
@@ -214,6 +218,16 @@ const NumberButtonsContainer = styled(motion.div)`
   gap: 0.7rem;
   margin-bottom: 0.7rem;
   width: 100%;
+  
+  /* Mobile styles */
+  @media (max-width: 480px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    width: calc(100% - 2rem);
+  }
 `;
 
 const NumberButton = styled(motion.button)`
@@ -245,9 +259,16 @@ const NumberButton = styled(motion.button)`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 0.91rem;
-    width: 2.1rem;
-    height: 2.1rem;
+    font-size: 1.5rem;
+    width: 100%;
+    height: 3.5rem;
+  }
+  
+  /* Special positioning for button 10 on mobile */
+  @media (max-width: 480px) {
+    &:nth-child(10) {
+      grid-column: 2;
+    }
   }
 
   &:hover {
@@ -336,8 +357,8 @@ const StartScreen = ({ onStartClick, audioEnabled = false }) => {
 
   return (
     <StartScreenContainer
-      initial={{ opacity: 0, scale: window.innerWidth <= 480 ? 0.63 : window.innerWidth <= 768 ? 0.77 : 1.26 }}
-      animate={{ opacity: 1, scale: window.innerWidth <= 480 ? 0.7 : window.innerWidth <= 768 ? 0.84 : 1.4 }}
+      initial={{ opacity: 0, scale: window.innerWidth <= 480 ? 0.9 : window.innerWidth <= 768 ? 0.77 : 1.26 }}
+      animate={{ opacity: 1, scale: window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 0.84 : 1.4 }}
       transition={{ duration: 0.5 }}
     >
       {/* Laser effect overlay */}
