@@ -60,6 +60,11 @@ const Title = styled.h1`
   animation: glow 2s ease-in-out infinite;
   font-weight: 800;
   letter-spacing: 2px;
+  
+  /* Hide on mobile */
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 function App() {

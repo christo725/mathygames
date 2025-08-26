@@ -13,16 +13,20 @@ const GameContainer = styled.div`
   z-index: 2;
 `;
 
-const MobileTitleArea = styled.div`
+const MobileCelebrationOverlay = styled(motion.div)`
   display: none;
-  width: 100%;
-  height: 100px;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
   
   @media (max-width: 480px) {
     display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(1, 3, 38, 0.95);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
   }
 `;
 
@@ -37,8 +41,10 @@ const ProgressContainer = styled(motion.div)`
   border: 1.141px solid var(--cyan);
   
   @media (max-width: 480px) {
-    padding: 0.8rem;
-    margin-bottom: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    border-radius: 0 0 0.567rem 0.567rem;
   }
 `;
 
@@ -131,7 +137,7 @@ const MobileKeypad = styled.div`
   display: none;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
-  margin-top: 0.8rem;
+  margin-top: 0.4rem;
   width: 100%;
   max-width: 280px;
   
@@ -182,7 +188,7 @@ const ProblemContainer = styled(motion.div)`
   position: relative;
   
   @media (max-width: 480px) {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.4rem;
   }
 `;
 
@@ -194,7 +200,7 @@ const ProblemRow = styled.div`
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.4rem;
     flex-wrap: wrap;
     gap: 0.3rem;
   }
@@ -368,10 +374,14 @@ const CelebrationGif = styled(motion.img)`
     display: none;
   }
   
-  /* When in mobile title area */
-  &.mobile-title {
-    width: 80px;
-    margin-top: 0;
+  /* When in mobile overlay */
+  &.mobile-fullscreen {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    margin: 0;
+    border: none;
+    box-shadow: none;
     
     @media (max-width: 480px) {
       display: block;
@@ -544,22 +554,29 @@ const GameScreen = ({
 
   return (
     <GameContainer>
-      <MobileTitleArea>
-        <AnimatePresence>
-          {showCelebrationGif && (
+      {/* Mobile fullscreen celebration overlay */}
+      <AnimatePresence>
+        {showCelebrationGif && window.innerWidth <= 480 && (
+          <MobileCelebrationOverlay
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
             <CelebrationGif
-              className="mobile-title"
-              key="mobile-celebration-gif"
+              className="mobile-fullscreen"
+              key="mobile-celebration-fullscreen"
               src={require(`../assets/celebration${celebrationGifNumber}.gif`)}
               alt="Celebration"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5 }}
+              initial={{ scale: 0.5, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              exit={{ scale: 0.5, rotate: 180 }}
               transition={{ duration: 0.5 }}
             />
-          )}
-        </AnimatePresence>
-      </MobileTitleArea>
+          </MobileCelebrationOverlay>
+        )}
+      </AnimatePresence>
+      
       <ProgressContainer
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
