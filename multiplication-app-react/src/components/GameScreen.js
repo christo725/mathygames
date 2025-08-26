@@ -327,30 +327,6 @@ const FeedbackContainer = styled(motion.div)`
   }
 `;
 
-const CorrectFeedback = styled(motion.p)`
-  font-size: 1.712rem;
-  font-weight: bold;
-  color: var(--cyan);
-  text-shadow: 0 0 8.56px rgba(34, 227, 255, 0.7);
-  background-color: rgba(1, 3, 38, 0.7);
-  padding: 0.567rem 1.141rem;
-  border-radius: 0.567rem;
-  display: inline-block;
-  border: 1.141px solid var(--cyan);
-  box-shadow: 0 0 11.41px rgba(34, 227, 255, 0.5);
-
-  /* Tablet styles */
-  @media (max-width: 768px) {
-    font-size: 1.426rem;
-    padding: 0.456rem 0.856rem;
-  }
-
-  /* Mobile styles */
-  @media (max-width: 480px) {
-    font-size: 1.141rem;
-    padding: 0.351rem 0.614rem;
-  }
-`;
 
 const WrongFeedback = styled(motion.p)`
   font-size: 1.712rem;
