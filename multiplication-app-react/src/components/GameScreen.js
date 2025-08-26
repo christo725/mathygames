@@ -8,20 +8,33 @@ const GameContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 338px;
+  max-width: 456px;
   position: relative;
   z-index: 2;
+`;
+
+const MobileTitleArea = styled.div`
+  display: none;
+  width: 100%;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  
+  @media (max-width: 480px) {
+    display: flex;
+  }
 `;
 
 
 const ProgressContainer = styled(motion.div)`
   width: 100%;
   background-color: rgba(1, 3, 38, 0.7);
-  padding: 0.65rem;
-  border-radius: 0.42rem;
-  margin-bottom: 0.845rem;
-  box-shadow: 0 0 8.45px rgba(34, 227, 255, 0.3);
-  border: 0.845px solid var(--cyan);
+  padding: 0.878rem;
+  border-radius: 0.567rem;
+  margin-bottom: 1.141rem;
+  box-shadow: 0 0 11.41px rgba(34, 227, 255, 0.3);
+  border: 1.141px solid var(--cyan);
   
   @media (max-width: 480px) {
     padding: 0.8rem;
@@ -32,11 +45,11 @@ const ProgressContainer = styled(motion.div)`
 const ProgressBarOuter = styled.div`
   width: 100%;
   background-color: rgba(34, 227, 255, 0.1);
-  height: 0.845rem;
-  border-radius: 0.42rem;
+  height: 1.141rem;
+  border-radius: 0.567rem;
   overflow: hidden;
-  margin-bottom: 0.42rem;
-  border: 0.42px solid rgba(34, 227, 255, 0.3);
+  margin-bottom: 0.567rem;
+  border: 0.567px solid rgba(34, 227, 255, 0.3);
   
   @media (max-width: 480px) {
     height: 1rem;
@@ -52,15 +65,15 @@ const ProgressBarInner = styled(motion.div)`
 `;
 
 const ProgressText = styled.p`
-  font-size: 0.634rem;
+  font-size: 0.856rem;
   font-weight: bold;
   color: var(--cyan);
   text-align: center;
-  text-shadow: 0 0 2.11px rgba(34, 227, 255, 0.7);
+  text-shadow: 0 0 2.85px rgba(34, 227, 255, 0.7);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 0.549rem;
+    font-size: 0.741rem;
   }
 
   /* Mobile styles */
@@ -70,19 +83,19 @@ const ProgressText = styled.p`
 `;
 
 const SubmitButton = styled(motion.button)`
-  font-size: 0.845rem;
+  font-size: 1.141rem;
   font-weight: bold;
   background: linear-gradient(45deg, var(--orange), var(--yellow));
   color: rgba(1, 3, 38, 0.9);
-  border: 1.27px solid var(--orange);
-  border-radius: 0.42rem;
-  padding: 0.42rem 1.27rem;
-  box-shadow: 0 0 8.45px rgba(255, 145, 57, 0.5);
-  text-shadow: 0 0.42px 0.845px rgba(0, 0, 0, 0.2);
+  border: 1.715px solid var(--orange);
+  border-radius: 0.567rem;
+  padding: 0.567rem 1.715rem;
+  box-shadow: 0 0 11.41px rgba(255, 145, 57, 0.5);
+  text-shadow: 0 0.567px 1.141px rgba(0, 0, 0, 0.2);
   transition: all 0.2s;
   font-family: 'Comic Neue', cursive;
   cursor: pointer;
-  margin: 0.634rem auto 0;
+  margin: 0.856rem auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,13 +105,13 @@ const SubmitButton = styled(motion.button)`
   }
   
   &:hover {
-    transform: translateY(-1.95px);
-    box-shadow: 0 0 19.5px rgba(255, 205, 57, 0.7);
+    transform: translateY(-2.633px);
+    box-shadow: 0 0 26.33px rgba(255, 205, 57, 0.7);
   }
   
   &:active {
-    transform: translateY(1.95px);
-    box-shadow: 0 0 9.75px rgba(255, 145, 57, 0.6);
+    transform: translateY(2.633px);
+    box-shadow: 0 0 13.16px rgba(255, 145, 57, 0.6);
   }
   
   &:disabled {
@@ -108,9 +121,9 @@ const SubmitButton = styled(motion.button)`
 `;
 
 const SubmitHint = styled.span`
-  font-size: 0.38rem;
+  font-size: 0.513rem;
   font-weight: normal;
-  margin-top: 0.127rem;
+  margin-top: 0.171rem;
   opacity: 0.8;
 `;
 
@@ -164,7 +177,7 @@ const ProblemContainer = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.845rem;
+  margin-bottom: 1.141rem;
   width: 100%;
   position: relative;
   
@@ -177,7 +190,7 @@ const ProblemRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.845rem;
+  margin-bottom: 1.141rem;
 
   /* Mobile styles */
   @media (max-width: 480px) {
@@ -188,22 +201,22 @@ const ProblemRow = styled.div`
 `;
 
 const Problem = styled(motion.span)`
-  font-size: 3.169rem;
+  font-size: 4.278rem;
   font-weight: bold;
   color: var(--cyan);
   text-align: center;
-  text-shadow: 0 0 6.34px rgba(34, 227, 255, 0.7);
-  padding: 0.42rem;
+  text-shadow: 0 0 8.56px rgba(34, 227, 255, 0.7);
+  padding: 0.567rem;
   background-color: rgba(1, 3, 38, 0.7);
-  border-radius: 0.42rem;
+  border-radius: 0.567rem;
   display: inline-block;
-  border: 0.845px solid var(--cyan);
-  box-shadow: 0 0 8.45px rgba(34, 227, 255, 0.3);
+  border: 1.141px solid var(--cyan);
+  box-shadow: 0 0 11.41px rgba(34, 227, 255, 0.3);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 2.11rem;
-    padding: 0.338rem;
+    font-size: 2.849rem;
+    padding: 0.456rem;
   }
 
   /* Mobile styles */
@@ -214,16 +227,16 @@ const Problem = styled(motion.span)`
 `;
 
 const EqualsSign = styled.span`
-  font-size: 3.169rem;
+  font-size: 4.278rem;
   font-weight: bold;
-  margin: 0 0.42rem;
+  margin: 0 0.567rem;
   color: var(--cyan);
-  text-shadow: 0 0 6.34px rgba(34, 227, 255, 0.7);
+  text-shadow: 0 0 8.56px rgba(34, 227, 255, 0.7);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 2.11rem;
-    margin: 0 0.338rem;
+    font-size: 2.849rem;
+    margin: 0 0.456rem;
   }
 
   /* Mobile styles */
@@ -234,29 +247,29 @@ const EqualsSign = styled.span`
 `;
 
 const AnswerInput = styled(motion.input)`
-  font-size: 2.958rem;
+  font-size: 3.993rem;
   text-align: center;
-  width: 76px;
-  height: 51px;
-  border: 1.27px solid var(--orange);
-  border-radius: 0.42rem;
+  width: 103px;
+  height: 69px;
+  border: 1.715px solid var(--orange);
+  border-radius: 0.567rem;
   background-color: rgba(1, 3, 38, 0.7);
-  padding: 0.211rem;
+  padding: 0.285rem;
   outline: none;
   font-family: 'Comic Neue', cursive;
   font-weight: bold;
   color: var(--yellow);
-  margin-left: 0.42rem;
-  text-shadow: 0 0 2.11px rgba(255, 205, 57, 0.7);
-  box-shadow: 0 0 6.34px rgba(255, 145, 57, 0.5);
+  margin-left: 0.567rem;
+  text-shadow: 0 0 2.85px rgba(255, 205, 57, 0.7);
+  box-shadow: 0 0 8.56px rgba(255, 145, 57, 0.5);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 1.901rem;
-    width: 59px;
-    height: 38px;
-    margin-left: 0.338rem;
-    padding: 0.169rem;
+    font-size: 2.566rem;
+    width: 80px;
+    height: 51px;
+    margin-left: 0.456rem;
+    padding: 0.228rem;
   }
 
   /* Mobile styles */
@@ -270,7 +283,7 @@ const AnswerInput = styled(motion.input)`
   
   &:focus {
     border-color: var(--bright-pink);
-    box-shadow: 0 0 16.25px rgba(255, 37, 183, 0.5);
+    box-shadow: 0 0 21.94px rgba(255, 37, 183, 0.5);
   }
   
   &:disabled {
@@ -280,79 +293,89 @@ const AnswerInput = styled(motion.input)`
 `;
 
 const FeedbackContainer = styled(motion.div)`
-  margin-top: 0.845rem;
+  margin-top: 1.141rem;
   text-align: center;
   
   @media (max-width: 480px) {
-    margin-top: 0.8rem;
+    margin-top: 1.08rem;
   }
 `;
 
 const CorrectFeedback = styled(motion.p)`
-  font-size: 1.268rem;
+  font-size: 1.712rem;
   font-weight: bold;
   color: var(--cyan);
-  text-shadow: 0 0 6.34px rgba(34, 227, 255, 0.7);
+  text-shadow: 0 0 8.56px rgba(34, 227, 255, 0.7);
   background-color: rgba(1, 3, 38, 0.7);
-  padding: 0.42rem 0.845rem;
-  border-radius: 0.42rem;
+  padding: 0.567rem 1.141rem;
+  border-radius: 0.567rem;
   display: inline-block;
-  border: 0.845px solid var(--cyan);
-  box-shadow: 0 0 8.45px rgba(34, 227, 255, 0.5);
+  border: 1.141px solid var(--cyan);
+  box-shadow: 0 0 11.41px rgba(34, 227, 255, 0.5);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 1.056rem;
-    padding: 0.338rem 0.634rem;
+    font-size: 1.426rem;
+    padding: 0.456rem 0.856rem;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 0.845rem;
-    padding: 0.26rem 0.455rem;
+    font-size: 1.141rem;
+    padding: 0.351rem 0.614rem;
   }
 `;
 
 const WrongFeedback = styled(motion.p)`
-  font-size: 1.268rem;
+  font-size: 1.712rem;
   font-weight: bold;
   color: var(--bright-pink);
-  text-shadow: 0 0 6.34px rgba(255, 37, 183, 0.7);
+  text-shadow: 0 0 8.56px rgba(255, 37, 183, 0.7);
   background-color: rgba(1, 3, 38, 0.7);
-  padding: 0.42rem 0.845rem;
-  border-radius: 0.42rem;
+  padding: 0.567rem 1.141rem;
+  border-radius: 0.567rem;
   display: inline-block;
-  border: 0.845px solid var(--bright-pink);
-  box-shadow: 0 0 8.45px rgba(255, 37, 183, 0.5);
+  border: 1.141px solid var(--bright-pink);
+  box-shadow: 0 0 11.41px rgba(255, 37, 183, 0.5);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 1.056rem;
-    padding: 0.338rem 0.634rem;
+    font-size: 1.426rem;
+    padding: 0.456rem 0.856rem;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 0.845rem;
-    padding: 0.26rem 0.455rem;
+    font-size: 1.141rem;
+    padding: 0.351rem 0.614rem;
   }
 `;
 
 const CelebrationGif = styled(motion.img)`
-  width: 126.75px;
-  margin-top: 0.42rem;
-  border-radius: 0.211rem;
-  box-shadow: 0 0 12.675px rgba(255, 145, 57, 0.7);
-  border: 0.845px solid var(--orange);
+  width: 171.11px;
+  margin-top: 0.567rem;
+  border-radius: 0.285rem;
+  box-shadow: 0 0 17.11px rgba(255, 145, 57, 0.7);
+  border: 1.141px solid var(--orange);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    width: 105.625px;
+    width: 142.59px;
   }
 
-  /* Mobile styles */
+  /* Mobile styles - hide in main area on mobile */
   @media (max-width: 480px) {
-    width: 84.5px;
+    display: none;
+  }
+  
+  /* When in mobile title area */
+  &.mobile-title {
+    width: 80px;
+    margin-top: 0;
+    
+    @media (max-width: 480px) {
+      display: block;
+    }
   }
 `;
 
@@ -360,80 +383,80 @@ const BadgesContainer = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.507rem;
-  margin: 0.845rem 0;
+  gap: 0.685rem;
+  margin: 1.141rem 0;
   width: 100%;
-  max-width: 338px;
+  max-width: 456px;
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    gap: 0.42rem;
-    margin: 0.634rem 0;
+    gap: 0.567rem;
+    margin: 0.856rem 0;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    gap: 0.325rem;
-    margin: 0.325rem 0;
+    gap: 0.439rem;
+    margin: 0.439rem 0;
   }
 `;
 
 const Badge = styled(motion.img)`
-  width: 47.32px;
-  height: 47.32px;
+  width: 63.88px;
+  height: 63.88px;
   object-fit: contain;
-  filter: drop-shadow(0 0 5.07px rgba(255, 205, 57, 0.8));
+  filter: drop-shadow(0 0 6.84px rgba(255, 205, 57, 0.8));
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    width: 40.56px;
-    height: 40.56px;
+    width: 54.76px;
+    height: 54.76px;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    width: 31.2px;
-    height: 31.2px;
+    width: 42.12px;
+    height: 42.12px;
   }
 `;
 
 const ReturnButton = styled(motion.button)`
-  font-size: 0.7605rem;
+  font-size: 1.027rem;
   font-weight: bold;
   background: linear-gradient(45deg, var(--cyan), #5648C0);
   color: white;
   border: none;
-  border-radius: 0.42rem;
-  padding: 0.338rem 0.634rem;
-  box-shadow: 0 0 8.45px rgba(34, 227, 255, 0.5);
-  text-shadow: 0 0.845px 1.69px rgba(0, 0, 0, 0.3);
+  border-radius: 0.567rem;
+  padding: 0.456rem 0.856rem;
+  box-shadow: 0 0 11.41px rgba(34, 227, 255, 0.5);
+  text-shadow: 0 1.141px 2.28px rgba(0, 0, 0, 0.3);
   transition: all 0.2s;
   font-family: 'Comic Neue', cursive;
   cursor: pointer;
-  margin-top: 0.845rem;
+  margin-top: 1.141rem;
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 0.676rem;
-    padding: 0.296rem 0.549rem;
-    margin-top: 0.634rem;
+    font-size: 0.913rem;
+    padding: 0.4rem 0.741rem;
+    margin-top: 0.856rem;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 0.65rem;
-    padding: 0.26rem 0.455rem;
-    margin-top: 0.325rem;
+    font-size: 0.878rem;
+    padding: 0.351rem 0.614rem;
+    margin-top: 0.439rem;
   }
 
   &:hover {
-    transform: translateY(-1.268px);
-    box-shadow: 0 0 12.675px rgba(34, 227, 255, 0.7);
+    transform: translateY(-1.712px);
+    box-shadow: 0 0 17.11px rgba(34, 227, 255, 0.7);
   }
 
   &:active {
-    transform: translateY(1.268px);
-    box-shadow: 0 0 6.34px rgba(34, 227, 255, 0.6);
+    transform: translateY(1.712px);
+    box-shadow: 0 0 8.56px rgba(34, 227, 255, 0.6);
   }
 `;
 
@@ -521,6 +544,22 @@ const GameScreen = ({
 
   return (
     <GameContainer>
+      <MobileTitleArea>
+        <AnimatePresence>
+          {showCelebrationGif && (
+            <CelebrationGif
+              className="mobile-title"
+              key="mobile-celebration-gif"
+              src={require(`../assets/celebration${celebrationGifNumber}.gif`)}
+              alt="Celebration"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ duration: 0.5 }}
+            />
+          )}
+        </AnimatePresence>
+      </MobileTitleArea>
       <ProgressContainer
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -562,6 +601,8 @@ const GameScreen = ({
               disabled={isProcessingAnswer}
               whileFocus={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
+              readOnly={window.innerWidth <= 480}
+              inputMode={window.innerWidth <= 480 ? 'none' : 'numeric'}
             />
           </ProblemRow>
           <SubmitButton

@@ -11,77 +11,77 @@ const StartScreenContainer = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  margin-top: 2rem;
+  padding: 1.4rem;
+  margin-top: 1.4rem;
   width: 100%;
-  max-width: 800px;
-  transform: scale(2);
+  max-width: 560px;
+  transform: scale(1.4);
   position: relative;
   z-index: 2;
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    transform: scale(1.2);
-    margin-top: 1rem;
-    padding: 1rem;
+    transform: scale(0.84);
+    margin-top: 0.7rem;
+    padding: 0.7rem;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    transform: scale(1);
-    margin-top: 0.5rem;
-    padding: 0.5rem;
+    transform: scale(0.7);
+    margin-top: 0.35rem;
+    padding: 0.35rem;
   }
 `;
 
 const StartImage = styled(motion.img)`
   width: 100%;
-  max-width: 500px;
-  margin-top: 200px;
-  margin-bottom: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 30px rgba(34, 227, 255, 0.3);
-  border: 2px solid var(--cyan);
+  max-width: 350px;
+  margin-top: 140px;
+  margin-bottom: 1.4rem;
+  border-radius: 0.7rem;
+  box-shadow: 0 0 21px rgba(34, 227, 255, 0.3);
+  border: 1.4px solid var(--cyan);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    margin-top: 100px;
-    margin-bottom: 1.5rem;
-    max-width: 400px;
+    margin-top: 70px;
+    margin-bottom: 1.05rem;
+    max-width: 280px;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    margin-top: 50px;
-    margin-bottom: 1rem;
-    max-width: 300px;
+    margin-top: 35px;
+    margin-bottom: 0.7rem;
+    max-width: 210px;
   }
 `;
 
 const StartText = styled(motion.h2)`
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   color: var(--cyan);
   text-align: center;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 0 10px rgba(34, 227, 255, 0.7);
+  margin-bottom: 1.05rem;
+  text-shadow: 0 0 7px rgba(34, 227, 255, 0.7);
   background-color: rgba(1, 3, 38, 0.7);
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(34, 227, 255, 0.2);
-  border: 2px solid var(--cyan);
+  padding: 1.05rem;
+  border-radius: 0.7rem;
+  box-shadow: 0 0 14px rgba(34, 227, 255, 0.2);
+  border: 1.4px solid var(--cyan);
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 2rem;
-    padding: 1.2rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.4rem;
+    padding: 0.84rem;
+    margin-bottom: 0.84rem;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 1.5rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    padding: 0.7rem;
+    margin-bottom: 0.7rem;
   }
 `;
 
@@ -141,35 +141,35 @@ const LaserBeam = styled.div`
 `;
 
 const StartButton = styled(motion.button)`
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
   background: linear-gradient(45deg, var(--orange), var(--bright-pink));
   color: white;
   border: none;
-  border-radius: 1rem;
-  padding: 1rem 3rem;
-  margin-top: 1.5rem;
-  box-shadow: 0 0 20px rgba(255, 37, 183, 0.5);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 0.7rem;
+  padding: 0.7rem 2.1rem;
+  margin-top: 1.05rem;
+  box-shadow: 0 0 14px rgba(255, 37, 183, 0.5);
+  text-shadow: 0 1.4px 2.8px rgba(0, 0, 0, 0.3);
   transition: all 0.2s;
   cursor: pointer;
   font-family: 'Comic Neue', cursive;
   position: relative;
   overflow: hidden;
-  letter-spacing: 1px;
+  letter-spacing: 0.7px;
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 2rem;
-    padding: 0.8rem 2rem;
-    margin-top: 1.2rem;
+    font-size: 1.4rem;
+    padding: 0.56rem 1.4rem;
+    margin-top: 0.84rem;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 1.5rem;
-    padding: 0.7rem 1.5rem;
-    margin-top: 1rem;
+    font-size: 1.05rem;
+    padding: 0.49rem 1.05rem;
+    margin-top: 0.7rem;
   }
 
   &::before {
@@ -211,43 +211,43 @@ const NumberButtonsContainer = styled(motion.div)`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 0.7rem;
+  margin-bottom: 0.7rem;
   width: 100%;
 `;
 
 const NumberButton = styled(motion.button)`
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   background: ${props => props.isSelected 
     ? 'linear-gradient(45deg, var(--cyan), var(--bright-pink))' 
     : 'linear-gradient(45deg, var(--dark-blue), var(--space-blue))'};
   color: white;
   border: none;
-  border-radius: 1rem;
-  width: 4rem;
-  height: 4rem;
-  box-shadow: 0 0 15px ${props => props.isSelected 
+  border-radius: 0.7rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  box-shadow: 0 0 10.5px ${props => props.isSelected 
     ? 'rgba(34, 227, 255, 0.7)' 
     : 'rgba(34, 227, 255, 0.3)'};
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1.4px 2.8px rgba(0, 0, 0, 0.3);
   transition: all 0.2s;
   cursor: pointer;
   font-family: 'Comic Neue', cursive;
-  border: 2px solid ${props => props.isSelected ? 'var(--yellow)' : 'var(--cyan)'};
+  border: 1.4px solid ${props => props.isSelected ? 'var(--yellow)' : 'var(--cyan)'};
 
   /* Tablet styles */
   @media (max-width: 768px) {
-    font-size: 1.7rem;
-    width: 3.5rem;
-    height: 3.5rem;
+    font-size: 1.19rem;
+    width: 2.45rem;
+    height: 2.45rem;
   }
 
   /* Mobile styles */
   @media (max-width: 480px) {
-    font-size: 1.3rem;
-    width: 3rem;
-    height: 3rem;
+    font-size: 0.91rem;
+    width: 2.1rem;
+    height: 2.1rem;
   }
 
   &:hover {
@@ -336,8 +336,8 @@ const StartScreen = ({ onStartClick, audioEnabled = false }) => {
 
   return (
     <StartScreenContainer
-      initial={{ opacity: 0, scale: window.innerWidth <= 480 ? 0.9 : window.innerWidth <= 768 ? 1.1 : 1.8 }}
-      animate={{ opacity: 1, scale: window.innerWidth <= 480 ? 1 : window.innerWidth <= 768 ? 1.2 : 2 }}
+      initial={{ opacity: 0, scale: window.innerWidth <= 480 ? 0.63 : window.innerWidth <= 768 ? 0.77 : 1.26 }}
+      animate={{ opacity: 1, scale: window.innerWidth <= 480 ? 0.7 : window.innerWidth <= 768 ? 0.84 : 1.4 }}
       transition={{ duration: 0.5 }}
     >
       {/* Laser effect overlay */}
