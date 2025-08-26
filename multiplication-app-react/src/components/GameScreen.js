@@ -13,41 +13,40 @@ const GameContainer = styled.div`
   z-index: 2;
 `;
 
-const MobileCelebrationOverlay = styled(motion.div)`
-  display: none;
-  
-  @media (max-width: 480px) {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(1, 3, 38, 0.95);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    gap: 1rem;
-  }
+const CelebrationOverlay = styled(motion.div)`
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(1, 3, 38, 0.95);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  gap: 2rem;
 `;
 
-const MobileCelebrationText = styled(motion.h2)`
-  display: none;
+const CelebrationText = styled(motion.h2)`
+  font-size: 4rem;
+  font-weight: bold;
+  color: var(--cyan);
+  text-shadow: 0 0 20px rgba(34, 227, 255, 0.7);
+  background-color: rgba(1, 3, 38, 0.8);
+  padding: 1.5rem 3rem;
+  border-radius: 1.5rem;
+  border: 3px solid var(--cyan);
+  box-shadow: 0 0 30px rgba(34, 227, 255, 0.5);
+  font-family: 'Comic Neue', cursive;
+  text-align: center;
   
   @media (max-width: 480px) {
-    display: block;
     font-size: 3rem;
-    font-weight: bold;
-    color: var(--cyan);
-    text-shadow: 0 0 15px rgba(34, 227, 255, 0.7);
-    background-color: rgba(1, 3, 38, 0.8);
     padding: 1rem 2rem;
     border-radius: 1rem;
     border: 2px solid var(--cyan);
     box-shadow: 0 0 20px rgba(34, 227, 255, 0.5);
-    font-family: 'Comic Neue', cursive;
-    text-align: center;
   }
 `;
 
@@ -395,17 +394,19 @@ const CelebrationGif = styled(motion.img)`
     display: none;
   }
   
-  /* When in mobile overlay */
-  &.mobile-fullscreen {
-    width: 250px;
-    height: 250px;
+  /* When in fullscreen overlay */
+  &.fullscreen {
+    width: 350px;
+    height: 350px;
     object-fit: contain;
     margin: 0;
     border: none;
     box-shadow: none;
+    display: block;
     
     @media (max-width: 480px) {
-      display: block;
+      width: 250px;
+      height: 250px;
     }
   }
 `;
@@ -575,26 +576,26 @@ const GameScreen = ({
 
   return (
     <GameContainer>
-      {/* Mobile fullscreen celebration overlay */}
+      {/* Fullscreen celebration overlay for both desktop and mobile */}
       <AnimatePresence>
-        {showCelebrationGif && window.innerWidth <= 480 && (
-          <MobileCelebrationOverlay
+        {showCelebrationGif && (
+          <CelebrationOverlay
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <MobileCelebrationText
+            <CelebrationText
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               Correct!
-            </MobileCelebrationText>
+            </CelebrationText>
             <CelebrationGif
-              className="mobile-fullscreen"
-              key="mobile-celebration-fullscreen"
+              className="fullscreen"
+              key="celebration-fullscreen"
               src={require(`../assets/celebration${celebrationGifNumber}.gif`)}
               alt="Celebration"
               initial={{ scale: 0.5, rotate: -180 }}
@@ -602,7 +603,7 @@ const GameScreen = ({
               exit={{ scale: 0.5, rotate: 180 }}
               transition={{ duration: 0.5 }}
             />
-          </MobileCelebrationOverlay>
+          </CelebrationOverlay>
         )}
       </AnimatePresence>
       
@@ -730,51 +731,25 @@ const GameScreen = ({
       </BadgesContainer>
 
       <AnimatePresence>
-        {feedback && (
+        {feedback && feedback === 'Try again!' && (
           <FeedbackContainer
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            {feedback === 'Correct!' ? (
-              <CorrectFeedback
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                transition={{ 
-                  duration: 0.5,
-                  type: "spring", 
-                  stiffness: 300
-                }}
-              >
-                {feedback}
-              </CorrectFeedback>
-            ) : (
-              <WrongFeedback
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                transition={{ 
-                  duration: 0.5,
-                  type: "spring", 
-                  stiffness: 300
-                }}
-              >
-                {feedback}
-              </WrongFeedback>
-            )}
+            <WrongFeedback
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ 
+                duration: 0.5,
+                type: "spring", 
+                stiffness: 300
+              }}
+            >
+              {feedback}
+            </WrongFeedback>
           </FeedbackContainer>
-        )}
-        
-        {showCelebrationGif && (
-          <CelebrationGif
-            key="celebration-gif"
-            src={require(`../assets/celebration${celebrationGifNumber}.gif`)}
-            alt="Celebration"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            transition={{ duration: 0.5 }}
-          />
         )}
       </AnimatePresence>
       
