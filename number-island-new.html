@@ -484,6 +484,16 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        @keyframes bubble {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.2) translateY(-5px); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.7; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.3) rotate(180deg); }
+        }
     </style>
 </head>
 <body>
@@ -772,54 +782,298 @@
             };
         };
 
-        // Visual components
-        const BeachVisual = ({ visual, showAnswer }) => {
+        // Game Visual Components with actual game mechanics
+        const BeachGame = ({ visual, showAnswer, currentProblem, score, selectedAnswer, problem }) => {
+            const [castleHeight, setCastleHeight] = useState(0);
+            const [crabPosition, setCrabPosition] = useState(20);
+            
+            useEffect(() => {
+                if (showAnswer && selectedAnswer === problem.answer) {
+                    // Animate crab building castle
+                    setCrabPosition(50);
+                    setTimeout(() => setCastleHeight(castleHeight + 1), 500);
+                }
+            }, [showAnswer]);
+
+            // Build sandcastle visualization
+            const castleLayers = [];
+            for (let i = 0; i < score; i++) {
+                castleLayers.push(
+                    <div key={i} style={{
+                        width: `${100 - i * 10}px`,
+                        height: '30px',
+                        backgroundColor: '#DEB887',
+                        border: '2px solid #8B7355',
+                        borderRadius: '5px',
+                        margin: '2px auto',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.2rem'
+                    }}>
+                        🏰
+                    </div>
+                );
+            }
+
             const shells = [];
             for (let i = 0; i < (showAnswer ? visual.target : visual.count); i++) {
-                shells.push(<span key={i} className="shell">🐚</span>);
+                shells.push(
+                    <span 
+                        key={i} 
+                        className="shell" 
+                        style={{ 
+                            animationDelay: `${i * 0.1}s`,
+                            transform: showAnswer ? 'translateY(-10px)' : 'none',
+                            transition: 'transform 0.5s ease'
+                        }}
+                    >
+                        🐚
+                    </span>
+                );
             }
-            return <div className="visual-aid">{shells}</div>;
+
+            return (
+                <div className="visual-aid">
+                    <div style={{ 
+                        background: 'linear-gradient(180deg, #87CEEB 0%, #F4A460 100%)',
+                        borderRadius: '15px',
+                        padding: '20px',
+                        margin: '10px 0',
+                        position: 'relative',
+                        minHeight: '200px'
+                    }}>
+                        {/* Beach Scene */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                            {/* Crab Character */}
+                            <div style={{ 
+                                fontSize: '3rem',
+                                transform: `translateX(${crabPosition}px)`,
+                                transition: 'transform 1s ease',
+                                textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                            }}>
+                                🦀
+                            </div>
+
+                            {/* Sandcastle */}
+                            <div style={{ display: 'flex', flexDirection: 'column-reverse', alignItems: 'center' }}>
+                                {castleLayers}
+                                <div style={{ fontSize: '1.5rem', marginTop: '10px' }}>
+                                    {score > 0 ? '🏰' : '🏖️'} Castle Progress: {score}/10
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Shells Collection */}
+                        <div style={{ marginTop: '20px' }}>
+                            <div style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#2E8B57', fontWeight: 'bold' }}>
+                                🐚 Shells Collected:
+                            </div>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                                {shells}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
         };
 
-        const CavesVisual = ({ visual }) => {
-            const groups = [];
+        const CavesGame = ({ visual, showAnswer, score, selectedAnswer, problem }) => {
+            const [minedCrystals, setMinedCrystals] = useState(0);
+            const [pickaxeSwing, setPickaxeSwing] = useState(false);
+
+            useEffect(() => {
+                if (showAnswer && selectedAnswer === problem.answer) {
+                    setPickaxeSwing(true);
+                    setTimeout(() => {
+                        setPickaxeSwing(false);
+                        setMinedCrystals(minedCrystals + visual.groups * visual.perGroup);
+                    }, 600);
+                }
+            }, [showAnswer]);
+
+            const crystalGroups = [];
             for (let g = 0; g < visual.groups; g++) {
                 const crystals = [];
                 for (let c = 0; c < visual.perGroup; c++) {
-                    crystals.push(<span key={`${g}-${c}`} className="crystal">💎</span>);
+                    crystals.push(
+                        <span 
+                            key={`${g}-${c}`} 
+                            className="crystal"
+                            style={{
+                                fontSize: '1.8rem',
+                                filter: showAnswer ? 'brightness(1.5) drop-shadow(0 0 10px #4ECDC4)' : 'none',
+                                transition: 'all 0.5s ease'
+                            }}
+                        >
+                            💎
+                        </span>
+                    );
                 }
-                groups.push(
-                    <div key={g} style={{ margin: '10px', padding: '10px', border: '2px dashed #ccc', borderRadius: '10px' }}>
+                crystalGroups.push(
+                    <div key={g} style={{ 
+                        margin: '15px', 
+                        padding: '15px', 
+                        border: '3px dashed #8A2BE2', 
+                        borderRadius: '15px',
+                        backgroundColor: 'rgba(138, 43, 226, 0.1)',
+                        transform: showAnswer ? 'scale(1.05)' : 'scale(1)',
+                        transition: 'transform 0.5s ease'
+                    }}>
+                        <div style={{ fontSize: '1rem', color: '#8A2BE2', fontWeight: 'bold', marginBottom: '5px' }}>
+                            Group {g + 1}
+                        </div>
                         {crystals}
                     </div>
                 );
             }
-            return <div className="visual-aid" style={{ flexDirection: 'column' }}>{groups}</div>;
+
+            return (
+                <div className="visual-aid">
+                    <div style={{
+                        background: 'linear-gradient(135deg, #2C1810 0%, #8A2BE2 50%, #4B0082 100%)',
+                        borderRadius: '15px',
+                        padding: '20px',
+                        margin: '10px 0',
+                        color: 'white',
+                        position: 'relative'
+                    }}>
+                        {/* Cave Header */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                            <div style={{ fontSize: '2rem' }}>
+                                <span style={{ 
+                                    transform: pickaxeSwing ? 'rotate(45deg)' : 'rotate(0deg)',
+                                    transition: 'transform 0.3s ease',
+                                    display: 'inline-block'
+                                }}>
+                                    ⛏️
+                                </span>
+                                <span style={{ marginLeft: '10px', fontSize: '1.2rem' }}>
+                                    Mining Crystals...
+                                </span>
+                            </div>
+                            <div style={{ fontSize: '1.2rem' }}>
+                                💎 Total Mined: {score * 10}
+                            </div>
+                        </div>
+
+                        {/* Crystal Groups */}
+                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            {crystalGroups}
+                        </div>
+
+                        {/* Cave floor with scattered gems */}
+                        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.7 }}>Cave Floor</div>
+                            <div>
+                                {Array(score).fill().map((_, i) => (
+                                    <span key={i} style={{ fontSize: '1.5rem', margin: '0 3px' }}>💎</span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
         };
 
-        const RapidsVisual = ({ visual }) => {
-            const parts = [];
+        const RapidsGame = ({ visual, showAnswer, score, selectedAnswer, problem }) => {
+            const [potionLevel, setPotionLevel] = useState(0);
+            const [bubbling, setBubbling] = useState(false);
+
+            useEffect(() => {
+                if (showAnswer && selectedAnswer === problem.answer) {
+                    setBubbling(true);
+                    setTimeout(() => {
+                        setPotionLevel(visual.fill);
+                        setBubbling(false);
+                    }, 800);
+                }
+            }, [showAnswer]);
+
+            // Create potion bottle visualization
+            const bottleParts = [];
             for (let i = 0; i < visual.total; i++) {
-                parts.push(
+                const isFilled = i < (showAnswer ? visual.fill : 0);
+                bottleParts.push(
                     <div 
                         key={i}
                         style={{ 
-                            width: '20px', 
-                            height: '20px', 
-                            backgroundColor: i < visual.fill ? '#4ECDC4' : '#DDD',
-                            border: '1px solid #333',
+                            width: '25px', 
+                            height: '25px', 
+                            backgroundColor: isFilled ? '#FF69B4' : 'rgba(255,255,255,0.3)',
+                            border: '2px solid #8A2BE2',
                             display: 'inline-block',
-                            margin: '2px'
+                            margin: '1px',
+                            borderRadius: '3px',
+                            transition: 'all 0.5s ease',
+                            boxShadow: isFilled ? '0 0 10px #FF69B4' : 'none',
+                            animation: bubbling && isFilled ? 'bubble 0.5s ease' : 'none'
                         }}
                     />
                 );
             }
+
             return (
                 <div className="visual-aid">
-                    <div style={{ fontSize: '1.2rem', marginBottom: '10px' }}>
-                        🧪 Potion Bottle ({visual.fraction})
+                    <div style={{
+                        background: 'linear-gradient(135deg, #FF1493 0%, #8A2BE2 50%, #4B0082 100%)',
+                        borderRadius: '15px',
+                        padding: '20px',
+                        margin: '10px 0',
+                        color: 'white',
+                        textAlign: 'center'
+                    }}>
+                        {/* Potion Master */}
+                        <div style={{ marginBottom: '20px' }}>
+                            <div style={{ fontSize: '3rem', marginBottom: '10px' }}>🧙‍♀️</div>
+                            <div style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
+                                Potion Master's Lab
+                            </div>
+                            <div style={{ fontSize: '1rem', opacity: 0.9 }}>
+                                Potions Brewed: {score}/10
+                            </div>
+                        </div>
+
+                        {/* Magic Potion Bottle */}
+                        <div style={{ 
+                            display: 'inline-block',
+                            background: 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.1) 100%)',
+                            borderRadius: '20px 20px 5px 5px',
+                            padding: '20px 15px',
+                            border: '3px solid #8A2BE2',
+                            position: 'relative'
+                        }}>
+                            <div style={{ fontSize: '1.2rem', marginBottom: '10px', color: '#FFD700' }}>
+                                🧪 Magic Bottle ({visual.fraction})
+                            </div>
+                            
+                            <div style={{ 
+                                display: 'grid',
+                                gridTemplateColumns: `repeat(${Math.ceil(Math.sqrt(visual.total))}, 1fr)`,
+                                gap: '2px',
+                                padding: '10px',
+                                backgroundColor: 'rgba(0,0,0,0.2)',
+                                borderRadius: '10px'
+                            }}>
+                                {bottleParts}
+                            </div>
+                            
+                            {/* Sparkle effects */}
+                            {showAnswer && (
+                                <div style={{ position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)' }}>
+                                    <span style={{ fontSize: '2rem', animation: 'sparkle 1s ease infinite' }}>✨</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Ingredient shelf */}
+                        <div style={{ marginTop: '20px', fontSize: '1.5rem' }}>
+                            <div style={{ fontSize: '1rem', marginBottom: '10px', opacity: 0.8 }}>
+                                Magic Ingredients:
+                            </div>
+                            <div>🌟 ⚡ 🔮 💫 🪄</div>
+                        </div>
                     </div>
-                    <div>{parts}</div>
                 </div>
             );
         };
@@ -921,35 +1175,117 @@
                         {zoneInfo[zone].title} - Question {currentProblem + 1}/10
                     </h2>
 
+                    {/* Game Scene - This is where the magic happens! */}
                     <div className="question-container">
-                        <div className="question-text">{problem.question}</div>
-                        
-                        {zone === 'beach' && <BeachVisual visual={problem.visual} showAnswer={showAnswer} />}
-                        {zone === 'caves' && <CavesVisual visual={problem.visual} />}
-                        {zone === 'rapids' && <RapidsVisual visual={problem.visual} />}
-
-                        <div className="answers-grid">
-                            {problem.choices.map(choice => (
-                                <button
-                                    key={choice}
-                                    className={`answer-btn ${showAnswer ? 
-                                        (choice === problem.answer ? 'correct' : 
-                                         choice === selectedAnswer ? 'incorrect' : '') : ''}`}
-                                    onClick={(e) => handleAnswer(choice, e)}
-                                    disabled={showAnswer}
-                                >
-                                    {choice}
-                                </button>
-                            ))}
+                        {/* Story/Question Context */}
+                        <div className="question-text" style={{ 
+                            background: 'rgba(255,255,255,0.95)', 
+                            borderRadius: '15px', 
+                            padding: '15px', 
+                            marginBottom: '20px',
+                            border: '3px solid #FFD700'
+                        }}>
+                            {problem.question}
                         </div>
-
-                        {showAnswer && (
-                            <div style={{ marginTop: '20px', fontSize: '1.3rem' }}>
-                                {selectedAnswer === problem.answer ? 
-                                    '🎉 Excellent work!' : 
-                                    `The correct answer is ${problem.answer}`}
-                            </div>
+                        
+                        {/* Interactive Game Visual */}
+                        {zone === 'beach' && (
+                            <BeachGame 
+                                visual={problem.visual} 
+                                showAnswer={showAnswer} 
+                                currentProblem={currentProblem}
+                                score={score}
+                                selectedAnswer={selectedAnswer}
+                                problem={problem}
+                            />
                         )}
+                        {zone === 'caves' && (
+                            <CavesGame 
+                                visual={problem.visual} 
+                                showAnswer={showAnswer} 
+                                score={score}
+                                selectedAnswer={selectedAnswer}
+                                problem={problem}
+                            />
+                        )}
+                        {zone === 'rapids' && (
+                            <RapidsGame 
+                                visual={problem.visual} 
+                                showAnswer={showAnswer} 
+                                score={score}
+                                selectedAnswer={selectedAnswer}
+                                problem={problem}
+                            />
+                        )}
+
+                        {/* Answer Selection */}
+                        <div style={{ 
+                            background: 'rgba(255,255,255,0.9)', 
+                            borderRadius: '15px', 
+                            padding: '20px', 
+                            marginTop: '20px' 
+                        }}>
+                            <div style={{ fontSize: '1.3rem', marginBottom: '15px', textAlign: 'center', color: '#333' }}>
+                                {zone === 'beach' ? '🦀 Help the crab! Choose your answer:' : 
+                                 zone === 'caves' ? '⛏️ How many crystals total?' : 
+                                 '🧙‍♀️ How many drops needed?'}
+                            </div>
+                            
+                            <div className="answers-grid">
+                                {problem.choices.map(choice => (
+                                    <button
+                                        key={choice}
+                                        className={`answer-btn ${showAnswer ? 
+                                            (choice === problem.answer ? 'correct' : 
+                                             choice === selectedAnswer ? 'incorrect' : '') : ''}`}
+                                        onClick={(e) => handleAnswer(choice, e)}
+                                        disabled={showAnswer}
+                                        style={{ 
+                                            fontSize: '1.8rem',
+                                            padding: '15px',
+                                            minWidth: '80px'
+                                        }}
+                                    >
+                                        {choice}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {showAnswer && (
+                                <div style={{ 
+                                    marginTop: '20px', 
+                                    fontSize: '1.4rem', 
+                                    textAlign: 'center',
+                                    padding: '15px',
+                                    borderRadius: '10px',
+                                    background: selectedAnswer === problem.answer ? 
+                                        'linear-gradient(45deg, #56AB2F, #A8E6CF)' : 
+                                        'linear-gradient(45deg, #FF6B6B, #FF8E53)',
+                                    color: 'white',
+                                    fontWeight: 'bold'
+                                }}>
+                                    {selectedAnswer === problem.answer ? (
+                                        <>
+                                            {zone === 'beach' ? '🦀 The crab is so happy! Well done!' : 
+                                             zone === 'caves' ? '⛏️ Great mining work! Crystals collected!' : 
+                                             '🧙‍♀️ Perfect potion! Magic sparkles everywhere!'} 
+                                            <div style={{ fontSize: '2rem', marginTop: '10px' }}>
+                                                🎉 +10 Coconuts! 🥥
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div>The correct answer is {problem.answer}</div>
+                                            <div style={{ fontSize: '1rem', marginTop: '5px', opacity: 0.9 }}>
+                                                {zone === 'beach' ? "The crab says: 'That's okay, let's try the next castle!'" : 
+                                                 zone === 'caves' ? "The miner says: 'No worries, more crystals ahead!'" : 
+                                                 "The wizard says: 'Every mistake teaches us something!'"}
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             );
