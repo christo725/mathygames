@@ -215,6 +215,51 @@ const StartButton = styled(motion.button)`
   `}
 `;
 
+const HomeButton = styled(motion.a)`
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, var(--dark-blue), var(--space-blue));
+  color: white;
+  border: 1.4px solid var(--cyan);
+  border-radius: 0.7rem;
+  padding: 0.5rem 1.5rem;
+  margin-top: 0.7rem;
+  box-shadow: 0 0 10px rgba(34, 227, 255, 0.5);
+  text-shadow: 0 1.4px 2.8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s;
+  cursor: pointer;
+  font-family: 'Comic Neue', cursive;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+
+  /* Tablet styles */
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 0.42rem 1.12rem;
+    margin-top: 0.56rem;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    padding: 0.6rem;
+    margin-top: 0.8rem;
+    width: calc(100% - 2rem);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(34, 227, 255, 0.7);
+    background: linear-gradient(45deg, var(--space-blue), var(--cyan));
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 10px rgba(34, 227, 255, 0.5);
+  }
+`;
+
 const NumberButtonsContainer = styled(motion.div)`
   display: flex;
   justify-content: center;
@@ -418,6 +463,17 @@ const StartScreen = ({ onStartClick, audioEnabled = false }) => {
       >
         BLAST OFF!
       </StartButton>
+      
+      <HomeButton
+        href="https://www.mathy.games"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+      >
+        Go back to Mathy.Games Home
+      </HomeButton>
     </StartScreenContainer>
   );
 };
